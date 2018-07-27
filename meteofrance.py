@@ -37,7 +37,7 @@ def previsions(ville):
     for heure in heures[1:]:
         jour = re.search(r'<h3>([A-zÀ-ÿ0-9]|\s)*',heure).group(0).replace("<h3>",'')
         horaire = re.search(r'<time datetime="[0-9]*h',heure).group(0).replace('<time datetime="','')
-        meteo = re.search(r'<li class="day-summary-label">([A-zÀ-ÿ0-9]|\s)*',heure).group(0).replace('<li class="day-summary-label"> ','')
+        meteo = re.search(r'<li class="day-summary-label">([A-zÀ-ÿ0-9\']|\s)*',heure).group(0).replace('<li class="day-summary-label"> ','')
         temperature = re.search(r'<li class="day-summary-temperature"> [0-9]*°C',heure).group(0).replace('<li class="day-summary-temperature"> ','')
         ressenti = re.search(r'Ressenti</abbr> [0-9]*°C',heure).group(0).replace('Ressenti</abbr> ','')
         vent = re.search(r'[0-9]* km\/h',heure).group(0).replace('</span>','')
