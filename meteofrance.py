@@ -6,12 +6,13 @@ def recherche_ville(texte):
     r = requests.get("http://www.meteofrance.com/mf3-rpc-portlet/rest/lieu/facet/previsions/search/"+texte)
     premier_resultat = r.json()[0]
     code_lieu = "/"+premier_resultat['slug']+"/"+premier_resultat['codePostal']
-    return code_lieu
+    return {"code":code_lieu,"nom":premier_resultat['nomAffiche']}
 
-def previsions(lieu):
+def previsions(ville):
+    lieu=ville['code']
     r = requests.get("http://www.meteofrance.com/previsions-meteo-france"+lieu)
 
-    retour = {'previsions':[]}
+    retour = {'ville':ville['nom'],'previsions':[]}
 
     page = r.text
     
