@@ -2,6 +2,12 @@ import requests
 import re
 
 
+def recherche_ville(texte):
+    r = requests.get("http://www.meteofrance.com/mf3-rpc-portlet/rest/lieu/facet/previsions/search/"+texte)
+    premier_resultat = r.json()[0]
+    code_lieu = "/"+premier_resultat['slug']+"/"+premier_resultat['codePostal']
+    return code_lieu
+
 def previsions(lieu):
     r = requests.get("http://www.meteofrance.com/previsions-meteo-france"+lieu)
 
@@ -40,5 +46,4 @@ def previsions(lieu):
         retour['previsions'].append(tab)
     return retour
 
-print(previsions("/lyon/69000"))
-
+print(previsions(recherche_ville("lyon")))
